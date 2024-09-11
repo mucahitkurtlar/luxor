@@ -1,0 +1,27 @@
+# Maintainer: Mücahit Kurtlar
+# Contributor: Mücahit Kurtlar
+
+pkgname=luxor
+_pkgname=luxor
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="LUKS2 brute-force cracker"
+arch=("x86_64")
+url="https://github.com/mucakurtlar/luxor"
+license=("GPL3")
+depends=("cryptsetup")
+makedepends=("cmake" "gcc" "git" "make")
+provides=(luxor)
+source=("git+https://github.com/mucahitkurtlar/luxor.git")
+sha256sums=("SKIP")
+
+build() {
+    cd "${srcdir}/${_pkgname}"
+    cmake -B build -S .
+    cmake --build build
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+    install -Dm755 build/luxor "${pkgdir}/usr/bin/luxor"
+}
