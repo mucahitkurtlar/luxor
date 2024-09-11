@@ -7,21 +7,21 @@ pkgver=0.0.1
 pkgrel=1
 pkgdesc="LUKS2 brute-force cracker"
 arch=("x86_64")
-url="https://github.com/mucakurtlar/luxor"
+url="https://github.com/mucahitkurtlar/luxor"
 license=("GPL3")
 depends=("cryptsetup")
-makedepends=("cmake" "gcc" "git" "make")
+makedepends=("cmake" "gcc" "make")
 provides=(luxor)
-source=("git+https://github.com/mucahitkurtlar/luxor.git")
-sha256sums=("SKIP")
+source=("https://github.com/mucahitkurtlar/luxor/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=("f4373b763bd9bb85826e7f7e161d3a6120313cb5b4906e81df244bc15bf05125")
 
 build() {
-    cd "${srcdir}/${_pkgname}"
+    cd "${srcdir}/${_pkgname}-${pkgver}"
     cmake -B build -S .
     cmake --build build
 }
 
 package() {
-    cd "${srcdir}/${_pkgname}"
+    cd "${srcdir}/${_pkgname}-${pkgver}"
     install -Dm755 build/luxor "${pkgdir}/usr/bin/luxor"
 }
